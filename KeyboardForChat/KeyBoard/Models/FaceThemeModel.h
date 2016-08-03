@@ -26,6 +26,9 @@ typedef NS_ENUM(NSInteger, FaceThemeStyle)
 /** 表情图片 */
 @property (nonatomic, copy) NSString *faceIcon;
 
+@property (nonatomic, assign) FaceThemeStyle themeStyle;
+
+
 @end
 
 @interface FaceThemeModel : NSObject
@@ -34,5 +37,6 @@ typedef NS_ENUM(NSInteger, FaceThemeStyle)
 @property (nonatomic, copy)   NSString *themeIcon;
 @property (nonatomic, copy)   NSString *themeDecribe;
 @property (nonatomic, strong) NSArray *faceModels;
+@property (nonatomic, assign) NSInteger numberOfPages;
 
 @end

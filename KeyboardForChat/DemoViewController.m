@@ -167,4 +167,15 @@
     self.sendText.text = text;
 }
 
+- (void)chatKeyBoardAddFaceSubject:(ChatKeyBoard *)chatKeyBoard {
+    UIViewController *vc = [[UIViewController alloc] init];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    [self.navigationController pushViewController:vc animated:YES];
+//    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)chatKeyBoardSetFaceSubject:(ChatKeyBoard *)chatKeyBoard {
+    NSLog(@"%s", __func__);
+}
+
 @end
