@@ -23,12 +23,13 @@
 
 #define kOneEmoticonHeight 50
 #define kOnePageCount 20
+#define kOnePageCustomCount 10
 
 #ifndef UIColorHex
 #define UIColorHex(_hex_)   [UIColor colorWithHexString:((__bridge NSString *)CFSTR(#_hex_))]
 #endif
 
-@interface FaceEmoticonInputView () <UICollectionViewDelegate, UICollectionViewDataSource, UIInputViewAudioFeedback,FaceEmoticonCollectionViewDelegate>
+@interface FaceEmoticonInputView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIInputViewAudioFeedback,FaceEmoticonCollectionViewDelegate>
 @property (nonatomic, strong) NSArray<UIButton *> *toolbarButtons;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIView *pageControl;
@@ -72,19 +73,32 @@
     NSUInteger index = 0;
     for (FaceEmoticonGroup *group in _emoticonGroups) {
         [indexs addObject:@(index)];
-        NSUInteger count = ceil(group.emoticons.count / (float)kOnePageCount);
-        if (count == 0) count = 1;
-        index += count;
+        if (group.emoticonType != FaceEmoticonTypeCustom) {
+            NSUInteger count = ceil(group.emoticons.count / (float)kOnePageCount);
+            if (count == 0) count = 1;
+            index += count;
+        } else {
+            NSUInteger count = ceil(group.emoticons.count / (float)kOnePageCustomCount);
+//            if (count == 0) count = 1;
+            index += count;
+        }
     }
     _emoticonGroupPageIndexs = indexs;
     
     NSMutableArray *pageCounts = [NSMutableArray new];
     _emoticonGroupTotalPageCount = 0;
     for (FaceEmoticonGroup *group in _emoticonGroups) {
-        NSUInteger pageCount = ceil(group.emoticons.count / (float)kOnePageCount);
-        if (pageCount == 0) pageCount = 1;
-        [pageCounts addObject:@(pageCount)];
-        _emoticonGroupTotalPageCount += pageCount;
+        if (group.emoticonType != FaceEmoticonTypeCustom) {
+            NSUInteger pageCount = ceil(group.emoticons.count / (float)kOnePageCount);
+            if (pageCount == 0) pageCount = 1;
+            [pageCounts addObject:@(pageCount)];
+            _emoticonGroupTotalPageCount += pageCount;
+        } else {
+            NSUInteger pageCount = ceil(group.emoticons.count / (float)kOnePageCustomCount);
+            if (pageCount == 0) continue;
+            [pageCounts addObject:@(pageCount)];
+            _emoticonGroupTotalPageCount += pageCount;
+        }
     }
     _emoticonGroupPageCounts = pageCounts;
 }
@@ -243,18 +257,35 @@
         if (section >= pageIndex.unsignedIntegerValue) {
             FaceEmoticonGroup *group = _emoticonGroups[i];
             NSUInteger page = section - pageIndex.unsignedIntegerValue;
-            NSUInteger index = page * kOnePageCount + indexPath.row;
             
-            // transpose line/row
-            NSUInteger ip = index / kOnePageCount;
-            NSUInteger ii = index % kOnePageCount;
-            NSUInteger reIndex = (ii % 3) * 7 + (ii / 3);
-            index = reIndex + ip * kOnePageCount;
-            
-            if (index < group.emoticons.count) {
-                return group.emoticons[index];
+            if (group.emoticonType != FaceEmoticonTypeCustom) {
+                NSUInteger index = page * kOnePageCount + indexPath.row;
+                
+                // transpose line/row
+                NSUInteger ip = index / kOnePageCount;
+                NSUInteger ii = index % kOnePageCount;
+                NSUInteger reIndex = (ii % 3) * 7 + (ii / 3);
+                index = reIndex + ip * kOnePageCount;
+                
+                if (index < group.emoticons.count) {
+                    return group.emoticons[index];
+                } else {
+                    return nil;
+                }
             } else {
-                return nil;
+                NSUInteger index = page * kOnePageCustomCount + indexPath.row;
+                
+                // transpose line/row
+                NSUInteger ip = index / kOnePageCustomCount;
+                NSUInteger ii = index % kOnePageCustomCount;
+                NSUInteger reIndex = (ii % 2) * 5 + (ii / 2);
+                index = reIndex + ip * kOnePageCustomCount;
+                
+                if (index < group.emoticons.count) {
+                    return group.emoticons[index];
+                } else {
+                    return nil;
+                }
             }
         }
     }
@@ -293,6 +324,12 @@
             case FaceEmoticonTypeEmoji: {
                 NSNumber *num = [NSNumber numberWithString:cell.emoticon.code];
                 text = [NSString stringWithUTF32Char:num.unsignedIntValue];
+            } break;
+            case FaceEmoticonTypeGif: {
+                text = cell.emoticon.chs;
+            } break;
+            case FaceEmoticonTypeCustom: {
+                text = cell.emoticon.chs;
             } break;
             default:break;
         }
@@ -363,7 +400,11 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return kOnePageCount + 1;
+    FaceEmoticon *emoticon = [self _emoticonForIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    if (emoticon.type != FaceEmoticonTypeCustom) {
+        return kOnePageCount + 1;
+    }
+    return kOnePageCustomCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -376,7 +417,20 @@
         cell.isDelete = NO;
         cell.emoticon = [self _emoticonForIndexPath:indexPath];
     }
+    
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    FaceEmoticon *emoticon = [self _emoticonForIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+    if (emoticon.type != FaceEmoticonTypeCustom) {
+        CGFloat itemWidth = (kScreenWidth - 10 * 2) / 7.0;
+        return CGSizeMake(itemWidth, kOneEmoticonHeight);
+    }
+    
+    CGFloat itemWidth = (kScreenWidth - 10 * 2) / 5.0;
+    return CGSizeMake(itemWidth, kOneEmoticonHeight * 1.5);
 }
 
 #pragma mark - UIInputViewAudioFeedback
@@ -384,6 +438,17 @@
 - (BOOL)enableInputClicksWhenVisible {
     return YES;
 }
+
++ (NSBundle *)qqEmoticonBundle {
+    static NSBundle *bundle;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonQQ" ofType:@"bundle"];
+        bundle = [NSBundle bundleWithPath:bundlePath];
+    });
+    return bundle;
+}
+
 
 + (NSBundle *)emoticonBundle {
     static NSBundle *bundle;
@@ -444,6 +509,122 @@
                 }
             }
         }
+        
+        //QQ
+        NSString *emoticonQQBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonQQ" ofType:@"bundle"];
+        NSString *emoticonQQPlistPath = [emoticonQQBundlePath stringByAppendingPathComponent:@"info.plist"];
+        NSArray *qqPlist = [NSArray arrayWithContentsOfFile:emoticonQQPlistPath];
+        FaceEmoticonGroup *qqGroup = [[FaceEmoticonGroup alloc] init];
+        qqGroup.nameCN = qqGroup.nameEN = qqGroup.nameTW = @"QQ";
+        NSMutableArray *qqEmoticons = [NSMutableArray array];
+        for (int i = 0; i < qqPlist.count; i ++) {
+            NSDictionary *dict = qqPlist[i];
+            FaceEmoticon *emoticon = [[FaceEmoticon alloc] init];
+            emoticon.chs = emoticon.cht = [dict allKeys].firstObject;
+            emoticon.png = [[dict allValues].firstObject stringByAppendingString:@"@2x"];
+            emoticon.gif = [[dict allValues].firstObject stringByAppendingString:@"@2x"];
+            emoticon.type = FaceEmoticonTypeGif;
+            emoticon.group = qqGroup;
+            
+            [qqEmoticons addObject:emoticon];
+        }
+        qqGroup.emoticons = qqEmoticons;
+        
+        [groups addObject:qqGroup];
+        
+        //大表情
+        NSString *emoticonBigPlistPath = [[NSBundle mainBundle]pathForResource:@"EmoticonTiaoTiao" ofType:@"bundle"];
+        NSDictionary *bigPlist = [NSDictionary dictionaryWithContentsOfFile:[emoticonBigPlistPath stringByAppendingPathComponent:@"emotion.plist"]];
+        FaceEmoticonGroup *bigGroup = [[FaceEmoticonGroup alloc] init];
+        bigGroup.nameCN = bigGroup.nameEN = bigGroup.nameTW = @"跳跳";
+        bigGroup.emoticonType = FaceEmoticonTypeCustom;
+        NSArray *bigAllKeys = [bigPlist allKeys];
+        NSMutableArray *bigEmoticons = [NSMutableArray array];
+        for (int i = 0; i < bigAllKeys.count; i ++) {
+            NSString *key = bigAllKeys[i];
+            FaceEmoticon *emoticon = [[FaceEmoticon alloc] init];
+            emoticon.chs = emoticon.cht = key;
+            emoticon.png = [emoticonBigPlistPath stringByAppendingPathComponent:[bigPlist[key] stringByAppendingString:@".gif"]];
+            emoticon.gif = [emoticonBigPlistPath stringByAppendingPathComponent:[bigPlist[key] stringByAppendingString:@".gif"]];
+            emoticon.type = FaceEmoticonTypeCustom;
+            emoticon.group = bigGroup;
+            
+            [bigEmoticons addObject:emoticon];
+        }
+        bigGroup.emoticons = bigEmoticons;
+        
+        [groups addObject:bigGroup];
+
+
+        //大表情
+        NSString *emoticonWordBundlePath = [[NSBundle mainBundle]pathForResource:@"EmoticonWord" ofType:@"bundle"];
+        NSDictionary *wordPlist = [NSDictionary dictionaryWithContentsOfFile:[emoticonWordBundlePath stringByAppendingPathComponent:@"emotion.plist"]];
+        FaceEmoticonGroup *wordGroup = [[FaceEmoticonGroup alloc] init];
+        wordGroup.emoticonType = FaceEmoticonTypeCustom;
+        wordGroup.nameCN = wordGroup.nameEN = wordGroup.nameTW = @"文字";
+        NSArray *wordAllKeys = [wordPlist allKeys];
+        NSMutableArray *wordEmoticons = [NSMutableArray array];
+        for (int i = 0; i < wordAllKeys.count; i ++) {
+            NSString *key = wordAllKeys[i];
+            FaceEmoticon *emoticon = [[FaceEmoticon alloc] init];
+            emoticon.chs = emoticon.cht = key;
+            emoticon.png = [emoticonWordBundlePath stringByAppendingPathComponent:[wordPlist[key] stringByAppendingString:@".gif"]];
+            emoticon.gif = [emoticonWordBundlePath stringByAppendingPathComponent:[wordPlist[key] stringByAppendingString:@".gif"]];
+            emoticon.type = FaceEmoticonTypeCustom;
+            emoticon.group = wordGroup;
+            
+            [wordEmoticons addObject:emoticon];
+        }
+        wordGroup.emoticons = wordEmoticons;
+        
+        [groups addObject:wordGroup];
+        
+        //大表情 咸鱼
+        NSString *emoticonFishBundlePath = [[NSBundle mainBundle]pathForResource:@"EmoticonFish" ofType:@"bundle"];
+        NSDictionary *fishPlist = [NSDictionary dictionaryWithContentsOfFile:[emoticonFishBundlePath stringByAppendingPathComponent:@"emotion.plist"]];
+        FaceEmoticonGroup *fishGroup = [[FaceEmoticonGroup alloc] init];
+        fishGroup.emoticonType = FaceEmoticonTypeCustom;
+        fishGroup.nameCN = fishGroup.nameEN = fishGroup.nameTW = @"咸鱼";
+        NSArray *fishAllKeys = [fishPlist allKeys];
+        NSMutableArray *fishEmoticons = [NSMutableArray array];
+        for (int i = 0; i < fishAllKeys.count; i ++) {
+            NSString *key = fishAllKeys[i];
+            FaceEmoticon *emoticon = [[FaceEmoticon alloc] init];
+            emoticon.chs = emoticon.cht = key;
+            emoticon.png = [emoticonFishBundlePath stringByAppendingPathComponent:[fishPlist[key] stringByAppendingString:@".jpg"]];
+            emoticon.gif = [emoticonFishBundlePath stringByAppendingPathComponent:[fishPlist[key] stringByAppendingString:@".jpg"]];
+            emoticon.type = FaceEmoticonTypeCustom;
+            emoticon.group = fishGroup;
+            
+            [fishEmoticons addObject:emoticon];
+        }
+        fishGroup.emoticons = fishEmoticons;
+        
+        [groups addObject:fishGroup];
+
+        //大表情 兔子
+        NSString *emoticonRabbitBundlePath = [[NSBundle mainBundle]pathForResource:@"EmoticonRabbit" ofType:@"bundle"];
+        NSDictionary *rabbitPlist = [NSDictionary dictionaryWithContentsOfFile:[emoticonRabbitBundlePath stringByAppendingPathComponent:@"emotion.plist"]];
+        FaceEmoticonGroup *rabbitGroup = [[FaceEmoticonGroup alloc] init];
+        rabbitGroup.emoticonType = FaceEmoticonTypeCustom;
+        rabbitGroup.nameCN = rabbitGroup.nameEN = rabbitGroup.nameTW = @"灰兔";
+        NSArray *rabbitAllKeys = [rabbitPlist allKeys];
+        NSMutableArray *rabbitEmoticons = [NSMutableArray array];
+        for (int i = 0; i < rabbitAllKeys.count; i ++) {
+            NSString *key = rabbitAllKeys[i];
+            FaceEmoticon *emoticon = [[FaceEmoticon alloc] init];
+            emoticon.chs = emoticon.cht = key;
+            emoticon.png = [emoticonRabbitBundlePath stringByAppendingPathComponent:[rabbitPlist[key] stringByAppendingString:@".png"]];
+            emoticon.gif = [emoticonRabbitBundlePath stringByAppendingPathComponent:[rabbitPlist[key] stringByAppendingString:@".png"]];
+            emoticon.type = FaceEmoticonTypeCustom;
+            emoticon.group = rabbitGroup;
+            
+            [rabbitEmoticons addObject:emoticon];
+        }
+        rabbitGroup.emoticons = rabbitEmoticons;
+        
+        [groups addObject:rabbitGroup];
+        
     });
     return groups;
 }

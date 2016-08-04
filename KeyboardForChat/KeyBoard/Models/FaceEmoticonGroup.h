@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FaceEmoticon.h"
 
-@class FaceEmoticon;
 @interface FaceEmoticonGroup : NSObject
 @property (nonatomic, strong) NSString *groupID; ///< 例如 com.sina.default
 @property (nonatomic, assign) NSInteger version;
@@ -18,4 +18,6 @@
 @property (nonatomic, assign) NSInteger displayOnly;
 @property (nonatomic, assign) NSInteger groupType;
 @property (nonatomic, strong) NSArray<FaceEmoticon *> *emoticons;
+@property (nonatomic, assign) FaceEmoticonType emoticonType;
+
 @end

@@ -24,6 +24,7 @@
 + (instancetype)sharedView;
 
 + (NSBundle *)emoticonBundle;
++ (NSBundle *)qqEmoticonBundle;
 
 @end
 

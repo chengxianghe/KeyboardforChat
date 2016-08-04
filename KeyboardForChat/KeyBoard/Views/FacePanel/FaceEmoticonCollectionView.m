@@ -8,13 +8,15 @@
 
 #import "FaceEmoticonCollectionView.h"
 #import "FaceEmoticonCell.h"
+#import "YYImage.h"
 
 @implementation FaceEmoticonCollectionView
 {
     NSTimeInterval *_touchBeganTime;
     BOOL _touchMoved;
     UIImageView *_magnifier;
-    UIImageView *_magnifierContent;
+    YYAnimatedImageView *_magnifierContent;
+    UILabel *_magnifierLabel;
     __weak FaceEmoticonCell *_currentMagnifierCell;
     NSTimer *_backspaceTimer;
 }
@@ -30,10 +32,20 @@
     self.multipleTouchEnabled = NO;
     
     _magnifier = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"emoticon_keyboard_magnifier"]];
-    _magnifierContent = [UIImageView new];
-    _magnifierContent.frame = CGRectMake(0, 0 , 40, 40);
+    _magnifier.frame = CGRectMake(0, 0, _magnifier.frame.size.width, _magnifier.frame.size.height * 1.2);
+    _magnifierContent = [YYAnimatedImageView new];
+    _magnifierContent.frame = CGRectMake(0, 0, 40, 40);
     _magnifierContent.center = CGPointMake(CGRectGetWidth(_magnifier.frame) / 2, 0);
+
     [_magnifier addSubview:_magnifierContent];
+    
+    _magnifierLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 45, CGRectGetWidth(_magnifier.frame) - 6, 16)];
+    _magnifierLabel.textAlignment = NSTextAlignmentCenter;
+    _magnifierLabel.font = [UIFont systemFontOfSize:12.0];
+    _magnifierLabel.adjustsFontSizeToFitWidth = YES;
+    _magnifierLabel.textColor = [UIColor darkGrayColor];
+    [_magnifier addSubview:_magnifierLabel];
+
     _magnifier.hidden = YES;
     [self addSubview:_magnifier];
     return self;
@@ -105,13 +117,38 @@
         return;
     }
     CGRect rect = [cell convertRect:cell.bounds toView:self];
+    
+    if (cell.emoticon.type == FaceEmoticonTypeCustom) {
+        _magnifier.frame = CGRectMake(0, 0, 100, 120);
+        _magnifierContent.frame = CGRectMake(0, 0, 60, 60);
+        _magnifierContent.center = CGPointMake(CGRectGetWidth(_magnifier.frame) / 2, 0);
+        _magnifierLabel.hidden = YES;
+    } else {
+        _magnifier.frame = CGRectMake(0, 0, 70, 104);
+        _magnifierContent.frame = CGRectMake(0, 0, 40, 40);
+        _magnifierContent.center = CGPointMake(CGRectGetWidth(_magnifier.frame) / 2, 0);
+        _magnifierLabel.frame = CGRectMake(3, 45, CGRectGetWidth(_magnifier.frame) - 6, 16);
+        _magnifierLabel.hidden = NO;
+    }
+
     _magnifier.center = CGPointMake(CGRectGetMidX(rect), _magnifier.center.y);
     CGRect magnifierFrame = _magnifier.frame;
+    
     magnifierFrame.origin.y = CGRectGetMaxY(rect) - 9 - magnifierFrame.size.height;
     _magnifier.frame = magnifierFrame;
     _magnifier.hidden = NO;
     
+    NSString *labelText = cell.emoticon.chs;
+    
+    if ([labelText rangeOfString:@"["].length > 0) {
+        labelText = [labelText substringWithRange:NSMakeRange(1, labelText.length - 2)];
+    } else if ([labelText rangeOfString:@"/"].length > 0) {
+        labelText = [labelText substringWithRange:NSMakeRange(1, labelText.length - 1)];
+    }
+    
+    _magnifierLabel.text = labelText;
     _magnifierContent.image = cell.imageView.image;
+    
     __block CGRect magnifierContentFrame = _magnifierContent.frame;
     magnifierContentFrame.origin.y = 20;
     _magnifierContent.frame = magnifierContentFrame;

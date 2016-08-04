@@ -10,6 +10,7 @@
 #import "FaceEmoticon.h"
 #import "FaceEmoticonInputView.h"
 #import "FaceEmoticonGroup.h"
+#import "YYImage.h"
 
 @implementation FaceEmoticonCell
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -44,10 +45,14 @@
     
     CGRect frame = _imageView.frame;
     if (_emoticon.type == FaceEmoticonTypeCustom) {
-        frame.size = CGSizeMake(60, 60);
+        CGFloat w = CGRectGetHeight(self.bounds) * 0.8;
+        frame.size = CGSizeMake(w, w);
     } else {
         frame.size = CGSizeMake(32, 32);
     }
+
+    _imageView.frame = frame;
+
     
     if (_isDelete) {
         _imageView.image = [UIImage imageNamed:@"Delete_ios7"];
@@ -59,7 +64,7 @@
                 UIImage *img = [UIImage imageWithEmoji:str size:CGRectGetWidth(_imageView.frame)];
                 _imageView.image = img;
             }
-        } else {
+        } else if (_emoticon.type == FaceEmoticonTypeImage) {
             NSString *pngPath = [[FaceEmoticonInputView emoticonBundle] pathForScaledResource:_emoticon.png ofType:nil inDirectory:_emoticon.group.groupID];
             if (!pngPath) {
                 NSString *addBundlePath = [[FaceEmoticonInputView emoticonBundle].bundlePath stringByAppendingPathComponent:@"additional"];
@@ -69,6 +74,14 @@
             if (pngPath) {
                 _imageView.image = [UIImage imageWithContentsOfFile:pngPath];
             }
+        } else if (_emoticon.type == FaceEmoticonTypeGif) {
+            NSString *pngPath = [[FaceEmoticonInputView qqEmoticonBundle] pathForResource:_emoticon.gif ofType:@"gif"];
+            if (pngPath) {
+                _imageView.image = [YYImage imageWithContentsOfFile:pngPath];
+            }
+
+        } else if (_emoticon.type == FaceEmoticonTypeCustom) {
+            _imageView.image = [YYImage imageWithContentsOfFile:_emoticon.gif];
         }
     }
 }

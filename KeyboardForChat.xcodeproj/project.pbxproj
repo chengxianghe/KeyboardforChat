@@ -17,6 +17,17 @@
 		144C89D71D51CC4A00390D1F /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89D31D51CC4A00390D1F /* NSObject+YYModel.m */; };
 		144C89D81D51CC4A00390D1F /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89D51D51CC4A00390D1F /* YYClassInfo.m */; };
 		144C89DB1D51F84D00390D1F /* CategoryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89DA1D51F84D00390D1F /* CategoryHelper.m */; };
+		144C89DD1D523EC200390D1F /* EmoticonQQ.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 144C89DC1D523EC200390D1F /* EmoticonQQ.bundle */; };
+		144C89E91D5243A000390D1F /* YYAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89E01D5243A000390D1F /* YYAnimatedImageView.m */; };
+		144C89EA1D5243A000390D1F /* YYFrameImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89E21D5243A000390D1F /* YYFrameImage.m */; };
+		144C89EB1D5243A000390D1F /* YYImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89E41D5243A000390D1F /* YYImage.m */; };
+		144C89EC1D5243A000390D1F /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89E61D5243A000390D1F /* YYImageCoder.m */; };
+		144C89ED1D5243A000390D1F /* YYSpriteSheetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 144C89E81D5243A000390D1F /* YYSpriteSheetImage.m */; };
+		144C89EF1D5243CC00390D1F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 144C89EE1D5243CC00390D1F /* libz.tbd */; };
+		145A6AF01D52D83E001CB950 /* EmoticonWord.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 145A6AEF1D52D83E001CB950 /* EmoticonWord.bundle */; };
+		145A6AF21D52DB6D001CB950 /* EmoticonTiaoTiao.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 145A6AF11D52DB6D001CB950 /* EmoticonTiaoTiao.bundle */; };
+		145A6AF41D52DD5B001CB950 /* EmoticonFish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 145A6AF31D52DD5B001CB950 /* EmoticonFish.bundle */; };
+		145A6AF61D531F5A001CB950 /* EmoticonRabbit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 145A6AF51D531F5A001CB950 /* EmoticonRabbit.bundle */; };
 		792106461CB74A6600A2296D /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106451CB74A6600A2296D /* MainTableViewController.m */; };
 		792106491CB74BF600A2296D /* TopTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106481CB74BF600A2296D /* TopTabViewController.m */; };
 		7921064C1CB74C1400A2296D /* TestNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7921064B1CB74C1400A2296D /* TestNavViewController.m */; };
@@ -25,9 +36,6 @@
 		792106571CB756D100A2296D /* Child3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106561CB756D100A2296D /* Child3ViewController.m */; };
 		7921065A1CB75A1400A2296D /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 792106591CB75A1400A2296D /* bg@2x.png */; };
 		795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */; };
-		79592A331CE9BADC0079FE28 /* emotion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79592A301CE9BADC0079FE28 /* emotion.plist */; };
-		79592A341CE9BADC0079FE28 /* face.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79592A311CE9BADC0079FE28 /* face.plist */; };
-		79592A351CE9BADC0079FE28 /* systemEmoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79592A321CE9BADC0079FE28 /* systemEmoji.plist */; };
 		79592A391CE9BB7E0079FE28 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 79592A381CE9BB7D0079FE28 /* NSString+Emoji.m */; };
 		79592A3C1CE9BEEA0079FE28 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79592A3B1CE9BEEA0079FE28 /* MessageViewController.m */; };
 		79891E211CA8FFFF0031B2AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E201CA8FFFF0031B2AE /* main.m */; };
@@ -69,6 +77,22 @@
 		144C89D61D51CC4A00390D1F /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		144C89D91D51F84D00390D1F /* CategoryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryHelper.h; sourceTree = "<group>"; };
 		144C89DA1D51F84D00390D1F /* CategoryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryHelper.m; sourceTree = "<group>"; };
+		144C89DC1D523EC200390D1F /* EmoticonQQ.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EmoticonQQ.bundle; sourceTree = "<group>"; };
+		144C89DF1D5243A000390D1F /* YYAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimatedImageView.h; sourceTree = "<group>"; };
+		144C89E01D5243A000390D1F /* YYAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimatedImageView.m; sourceTree = "<group>"; };
+		144C89E11D5243A000390D1F /* YYFrameImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFrameImage.h; sourceTree = "<group>"; };
+		144C89E21D5243A000390D1F /* YYFrameImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFrameImage.m; sourceTree = "<group>"; };
+		144C89E31D5243A000390D1F /* YYImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYImage.h; sourceTree = "<group>"; };
+		144C89E41D5243A000390D1F /* YYImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYImage.m; sourceTree = "<group>"; };
+		144C89E51D5243A000390D1F /* YYImageCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYImageCoder.h; sourceTree = "<group>"; };
+		144C89E61D5243A000390D1F /* YYImageCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYImageCoder.m; sourceTree = "<group>"; };
+		144C89E71D5243A000390D1F /* YYSpriteSheetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSpriteSheetImage.h; sourceTree = "<group>"; };
+		144C89E81D5243A000390D1F /* YYSpriteSheetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSpriteSheetImage.m; sourceTree = "<group>"; };
+		144C89EE1D5243CC00390D1F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		145A6AEF1D52D83E001CB950 /* EmoticonWord.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EmoticonWord.bundle; sourceTree = "<group>"; };
+		145A6AF11D52DB6D001CB950 /* EmoticonTiaoTiao.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EmoticonTiaoTiao.bundle; sourceTree = "<group>"; };
+		145A6AF31D52DD5B001CB950 /* EmoticonFish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EmoticonFish.bundle; sourceTree = "<group>"; };
+		145A6AF51D531F5A001CB950 /* EmoticonRabbit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EmoticonRabbit.bundle; sourceTree = "<group>"; };
 		792106441CB74A6600A2296D /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		792106451CB74A6600A2296D /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		792106471CB74BF600A2296D /* TopTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTabViewController.h; sourceTree = "<group>"; };
@@ -85,9 +109,6 @@
 		792929AD1CACB4D400E4376E /* ChatKeyBoardMacroDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoardMacroDefine.h; sourceTree = "<group>"; };
 		795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoard.h; sourceTree = "<group>"; };
 		795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatKeyBoard.m; sourceTree = "<group>"; };
-		79592A301CE9BADC0079FE28 /* emotion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emotion.plist; sourceTree = "<group>"; };
-		79592A311CE9BADC0079FE28 /* face.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = face.plist; sourceTree = "<group>"; };
-		79592A321CE9BADC0079FE28 /* systemEmoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = systemEmoji.plist; sourceTree = "<group>"; };
 		79592A371CE9BB7D0079FE28 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
 		79592A381CE9BB7D0079FE28 /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
 		79592A3A1CE9BEEA0079FE28 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
@@ -129,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144C89EF1D5243CC00390D1F /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,14 +169,21 @@
 			path = YYModel;
 			sourceTree = "<group>";
 		};
-		79592A2F1CE9BADC0079FE28 /* plist */ = {
+		144C89DE1D5243A000390D1F /* YYImage */ = {
 			isa = PBXGroup;
 			children = (
-				79592A301CE9BADC0079FE28 /* emotion.plist */,
-				79592A311CE9BADC0079FE28 /* face.plist */,
-				79592A321CE9BADC0079FE28 /* systemEmoji.plist */,
+				144C89DF1D5243A000390D1F /* YYAnimatedImageView.h */,
+				144C89E01D5243A000390D1F /* YYAnimatedImageView.m */,
+				144C89E11D5243A000390D1F /* YYFrameImage.h */,
+				144C89E21D5243A000390D1F /* YYFrameImage.m */,
+				144C89E31D5243A000390D1F /* YYImage.h */,
+				144C89E41D5243A000390D1F /* YYImage.m */,
+				144C89E51D5243A000390D1F /* YYImageCoder.h */,
+				144C89E61D5243A000390D1F /* YYImageCoder.m */,
+				144C89E71D5243A000390D1F /* YYSpriteSheetImage.h */,
+				144C89E81D5243A000390D1F /* YYSpriteSheetImage.m */,
 			);
-			path = plist;
+			path = YYImage;
 			sourceTree = "<group>";
 		};
 		79592A361CE9BB5F0079FE28 /* Cagegory */ = {
@@ -171,6 +200,7 @@
 		79891E131CA8FFFF0031B2AE = {
 			isa = PBXGroup;
 			children = (
+				144C89EE1D5243CC00390D1F /* libz.tbd */,
 				79891E1E1CA8FFFF0031B2AE /* KeyboardForChat */,
 				79891E1D1CA8FFFF0031B2AE /* Products */,
 			);
@@ -217,6 +247,12 @@
 		79891E1F1CA8FFFF0031B2AE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				145A6AF51D531F5A001CB950 /* EmoticonRabbit.bundle */,
+				145A6AF31D52DD5B001CB950 /* EmoticonFish.bundle */,
+				145A6AF11D52DB6D001CB950 /* EmoticonTiaoTiao.bundle */,
+				145A6AEF1D52D83E001CB950 /* EmoticonWord.bundle */,
+				144C89DE1D5243A000390D1F /* YYImage */,
+				144C89DC1D523EC200390D1F /* EmoticonQQ.bundle */,
 				144C89D11D51CC4A00390D1F /* YYModel */,
 				144C89CF1D51CC3900390D1F /* EmoticonWeibo.bundle */,
 				E3CE7D3B1CAC266400C096AE /* Assets.xcassets */,
@@ -297,7 +333,6 @@
 		79C90CDD1CA94D350059270D /* KeyBoard */ = {
 			isa = PBXGroup;
 			children = (
-				79592A2F1CE9BADC0079FE28 /* plist */,
 				79592A361CE9BB5F0079FE28 /* Cagegory */,
 				79A1258F1CB4AE2E0017EEA0 /* Models */,
 				79A125961CB4AE2E0017EEA0 /* Views */,
@@ -370,12 +405,14 @@
 			files = (
 				144C89D01D51CC3900390D1F /* EmoticonWeibo.bundle in Resources */,
 				79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */,
+				145A6AF21D52DB6D001CB950 /* EmoticonTiaoTiao.bundle in Resources */,
+				145A6AF61D531F5A001CB950 /* EmoticonRabbit.bundle in Resources */,
 				7921065A1CB75A1400A2296D /* bg@2x.png in Resources */,
-				79592A331CE9BADC0079FE28 /* emotion.plist in Resources */,
 				79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */,
 				E3CE7D3C1CAC266400C096AE /* Assets.xcassets in Resources */,
-				79592A351CE9BADC0079FE28 /* systemEmoji.plist in Resources */,
-				79592A341CE9BADC0079FE28 /* face.plist in Resources */,
+				144C89DD1D523EC200390D1F /* EmoticonQQ.bundle in Resources */,
+				145A6AF01D52D83E001CB950 /* EmoticonWord.bundle in Resources */,
+				145A6AF41D52DD5B001CB950 /* EmoticonFish.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +426,7 @@
 				792106461CB74A6600A2296D /* MainTableViewController.m in Sources */,
 				144C89C41D51BD7A00390D1F /* FaceEmoticonGroup.m in Sources */,
 				79A125B41CB4AE2E0017EEA0 /* FacePanel.m in Sources */,
+				144C89E91D5243A000390D1F /* YYAnimatedImageView.m in Sources */,
 				144C89C11D51BD6700390D1F /* FaceEmoticon.m in Sources */,
 				79592A3C1CE9BEEA0079FE28 /* MessageViewController.m in Sources */,
 				795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */,
@@ -396,6 +434,8 @@
 				79A125BC1CB4AE2E0017EEA0 /* RFRecordButton.m in Sources */,
 				792106571CB756D100A2296D /* Child3ViewController.m in Sources */,
 				144C89CE1D51C89100390D1F /* ScreenHelper.m in Sources */,
+				144C89EB1D5243A000390D1F /* YYImage.m in Sources */,
+				144C89ED1D5243A000390D1F /* YYSpriteSheetImage.m in Sources */,
 				144C89C71D51C15C00390D1F /* FaceEmoticonCollectionView.m in Sources */,
 				79A125BB1CB4AE2E0017EEA0 /* OfficialAccountToolbar.m in Sources */,
 				79891E271CA8FFFF0031B2AE /* DemoViewController.m in Sources */,
@@ -403,6 +443,7 @@
 				792106521CB74EB600A2296D /* Child2ViewController.m in Sources */,
 				144C89DB1D51F84D00390D1F /* CategoryHelper.m in Sources */,
 				144C89D81D51CC4A00390D1F /* YYClassInfo.m in Sources */,
+				144C89EC1D5243A000390D1F /* YYImageCoder.m in Sources */,
 				79A125BA1CB4AE2E0017EEA0 /* ChatToolBar.m in Sources */,
 				79A125B21CB4AE2E0017EEA0 /* MoreItem.m in Sources */,
 				79A125B91CB4AE2E0017EEA0 /* MorePanel.m in Sources */,
@@ -415,6 +456,7 @@
 				79592A391CE9BB7E0079FE28 /* NSString+Emoji.m in Sources */,
 				79A125BD1CB4AE2E0017EEA0 /* RFTextView.m in Sources */,
 				144C89D71D51CC4A00390D1F /* NSObject+YYModel.m in Sources */,
+				144C89EA1D5243A000390D1F /* YYFrameImage.m in Sources */,
 				7921064C1CB74C1400A2296D /* TestNavViewController.m in Sources */,
 				79891E211CA8FFFF0031B2AE /* main.m in Sources */,
 			);

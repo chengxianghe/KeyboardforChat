@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>[宝贝儿]</key>
+	<string>00</string>
+	<key>[有病]</key>
+	<string>01</string>
+	<key>[脑残]</key>
+	<string>02</string>
+	<key>[滚]</key>
+	<string>03</string>
+	<key>[呵呵]</key>
+	<string>04</string>
+	<key>[傻B]</key>
+	<string>05</string>
+	<key>[套路]</key>
+	<string>06</string>
+	<key>[发红包]</key>
+	<string>07</string>
+	<key>[分手]</key>
+	<string>08</string>
+	<key>[垃圾]</key>
+	<string>09</string>
+	<key>[妈的智障]</key>
+	<string>10</string>
+</dict>
+</plist>

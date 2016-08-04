@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FaceEmoticon.h"
 
-@class FaceEmoticon;
 
 @interface FaceEmoticonCell : UICollectionViewCell
 
